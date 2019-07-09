@@ -37,10 +37,8 @@ it('should return Receipts when invoke print given items', ()=>{
     const receipts = "Receipts\n"+
     "------------------------------------------------------------\n"+
     "Coca Cola\t3\t1\n"+
-    "Pepsi-Cola\t5\t1\n"+
-    //"Pepsi-Cola\t5\t2\n"+
+    "Pepsi-Cola\t5\t2\n"+
     "Dr Pepper\t7\t1\n"+
-    "Pepsi-Cola\t5\t1\n"+
     "------------------------------------------------------------\n"+
     "Price: 20";
     expect(PrintReceipt.print(items,20)).toBe(receipts);

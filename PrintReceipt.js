@@ -20,7 +20,6 @@ function isValid(barcodes){
 function getItems(barcodes){
     var items = new Array();
     const storeSet = new Set();
-    const itemsSet = new Set();
 
     for(var i in storeItem){
         storeSet.add(storeItem[i].id);
@@ -53,12 +52,25 @@ function print(items, sum){
 
     var receipt ='Receipts\n';
     receipt +="------------------------------------------------------------\n";
-    var num = new Array();
-    var id = new Array();
-
-    
+    const set = new Set();
+    var arr = new Array();
     for(var i in items){
-        receipt +=items[i].name+"\t"+items[i].price+"\t"+"1\n";
+        if(!set.has(items[i].id)){
+            var obj = {id:items[i].id,name:items[i].name,price:items[i].price,count:1};
+            arr.push(obj);
+            set.add(items[i].id);
+        }else{
+            for(var j in arr){
+                if(arr[j].id==items[i].id){
+                    arr[j].count++;
+                }
+            }
+        }
+    }
+    console.log(set);
+    console.log(arr);
+    for(var i in arr){
+        receipt +=arr[i].name+"\t"+arr[i].price+"\t"+arr[i].count+"\n";
     }
     receipt +="------------------------------------------------------------\n";
     receipt +="Price: "+sum;
