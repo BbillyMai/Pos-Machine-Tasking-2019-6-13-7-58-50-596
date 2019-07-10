@@ -21,9 +21,9 @@ function getItems(barcodes){
     var items = new Array();
     const storeSet = new Set();
 
-    for(var i in storeItem){
-        storeSet.add(storeItem[i].id);
-    }
+    storeItem.forEach((item)=>{
+        storeSet.add(item.id);
+    })
     
     for(var i in barcodes){
         if(storeSet.has(barcodes[i])){
@@ -40,38 +40,38 @@ function getItems(barcodes){
     return items;
 }
 
-function calculatePrice(items){
+function calculateTotalPrice(items){
     var sum = 0;
-    for(var i in items){
-        sum += items[i].price;
-    }
+    items.forEach((item)=>{
+        sum += item.price;
+    })
     return sum;
 }
 
-function print(items, sum){
+function createReceipt(items, sum){
 
     var receipt ='Receipts\n';
     receipt +="------------------------------------------------------------\n";
-    const set = new Set();
-    var arr = new Array();
-    for(var i in items){
-        if(!set.has(items[i].id)){
-            var obj = {id:items[i].id,name:items[i].name,price:items[i].price,count:1};
-            arr.push(obj);
-            set.add(items[i].id);
+    const itemsSet = new Set();
+    var goods = new Array();
+    for(var index in items){
+        if(!itemsSet.has(items[index].id)){
+            var obj = {id:items[index].id,name:items[index].name,price:items[index].price,count:1};
+            goods.push(obj);
+            itemsSet.add(items[index].id);
         }else{
-            for(var j in arr){
-                if(arr[j].id==items[i].id){
-                    arr[j].count++;
+            goods.forEach((item)=>{
+                if(item.id==items[index].id){
+                    item.count++;
                 }
-            }
+            })
         }
     }
-    console.log(set);
-    console.log(arr);
-    for(var i in arr){
-        receipt +=arr[i].name+"\t"+arr[i].price+"\t"+arr[i].count+"\n";
-    }
+    
+    goods.forEach((item)=>{
+        receipt +=item.name+"\t"+item.price+"\t"+item.count+"\n";
+    })
+
     receipt +="------------------------------------------------------------\n";
     receipt +="Price: "+sum;
     return receipt;
@@ -94,6 +94,6 @@ module.exports = {
     printReceipt,
     isValid,
     getItems,
-    calculatePrice,
-    print
+    calculateTotalPrice,
+    createReceipt
 }

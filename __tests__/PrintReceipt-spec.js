@@ -24,7 +24,7 @@ it('should return sum when invoke calculate given items', ()=>{
     {"id": "0003", "name" : "Pepsi-Cola", "price": 5},
     {"id": "0005", "name" : "Dr Pepper", "price": 7},
     {"id": "0003", "name" : "Pepsi-Cola", "price": 5}]
-    expect(PrintReceipt.calculatePrice(items)).toBe(20);
+    expect(PrintReceipt.calculateTotalPrice(items)).toBe(20);
 });
 
 
@@ -41,5 +41,5 @@ it('should return Receipts when invoke print given items', ()=>{
     "Dr Pepper\t7\t1\n"+
     "------------------------------------------------------------\n"+
     "Price: 20";
-    expect(PrintReceipt.print(items,20)).toBe(receipts);
+    expect(PrintReceipt.createReceipt(items,20)).toBe(receipts);
 });
